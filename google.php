@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * After successful google authentication, google transfer control to this page.
+ *
+ * PHP version 7
+ *
+ * @category PHP
+ * @package  Twitter
+ * @author   Ravat Parmar <ravatparmar@hotmail.com>
+ * @version  CVS: 1.0
+ * @link     http://ravatparmar.com
+ */
+
 require_once 'vendor/autoload.php';
 
 session_start();
@@ -22,7 +34,8 @@ if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
         'mimeType' => "text/xls",
         'uploadType' => "media",
     ));
-    var_dump($result);
+    header("location:home");
+//    var_dump($result);
 } else {
     $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/twitter/success';
     header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));

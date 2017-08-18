@@ -1,4 +1,17 @@
 <?php
+
+/**
+ * Google authentication page.
+ *
+ * PHP version 7
+ *
+ * @category PHP
+ * @package  Twitter
+ * @author   Ravat Parmar <ravatparmar@hotmail.com>
+ * @version  CVS: 1.0
+ * @link     http://ravatparmar.com
+ */
+
 require_once 'vendor/autoload.php';
 
 session_start();

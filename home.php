@@ -1,11 +1,27 @@
 <?php
+
+/**
+ * This is home page of user after authentication. 
+ *
+ * PHP version 7
+ *
+ * @category PHP
+ * @package  Twitter
+ * @author   Ravat Parmar <ravatparmar@hotmail.com>
+ * @version  CVS: 1.0
+ * @link     http://ravatparmar.com
+ */
+
 session_start();
 require "twitteroauth-master/autoload.php";
 require "inc/config.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
-if (isset($_SESSION['access_token']['oauth_token']) && isset($_SESSION['access_token']['oauth_token_secret']) && isset($_SESSION['access_token']) && isset($_SESSION['access_token']['oauth_token'])
+if (isset($_SESSION['access_token']['oauth_token']) 
+    && isset($_SESSION['access_token']['oauth_token_secret']) 
+    && isset($_SESSION['access_token']) 
+    && isset($_SESSION['access_token']['oauth_token'])
 ) {
     
 } else {
@@ -13,7 +29,10 @@ if (isset($_SESSION['access_token']['oauth_token']) && isset($_SESSION['access_t
 }
 
 $twitter = new TwitterOAuth(
-        CONSUMER_KEY, CONSUMER_SECRET, $_SESSION['access_token']['oauth_token'], $_SESSION['access_token']['oauth_token_secret']
+    CONSUMER_KEY, 
+    CONSUMER_SECRET, 
+    $_SESSION['access_token']['oauth_token'], 
+    $_SESSION['access_token']['oauth_token_secret']
 );
 $tweets = $twitter->get("statuses/home_timeline", ["count" => 10]);
 
@@ -38,7 +57,7 @@ $id = "";
         <header class="header">
             <div class="page-content" >
                 <div class="pull-left heading-text" >Twitter</div>
-                <div class="pull-right" > 			
+                <div class="pull-right" >
                     <ul class="list-inline header-menu">
                         <li><input list="followers" placeholder="Followers" /></li>
                         <li><a href="home" >Home</a></li>
@@ -186,13 +205,12 @@ if (!isset($_SESSION['followers'])) {
         }
     }
     $_SESSION['followers'] = $arr;
-}
-else{
+} else {
     $arr = $_SESSION['followers'];
 }
 echo '<datalist id="followers">';
-foreach($arr as $a){
-    if(!is_array($a)){
+foreach ($arr as $a) {
+    if ( !is_array($a)) {
         echo '<option value="'.$a.'">';
     }
 }

@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * Get the time of current logged in user.
+ *
+ * PHP version 7
+ *
+ * @category PHP
+ * @package  Twitter
+ * @author   Ravat Parmar <ravatparmar@hotmail.com>
+ * @version  CVS: 1.0
+ * @link     http://ravatparmar.com
+ */
 session_start();
 require "twitteroauth-master/autoload.php";
 require "inc/config.php";
