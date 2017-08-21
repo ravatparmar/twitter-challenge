@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Get the time of current logged in user.
  *
@@ -30,49 +29,54 @@ if (isset($_SESSION['access_token']['oauth_token'])
 $screen_name = $_GET['screen_name'];
 
 $twitter = new TwitterOAuth(
-        CONSUMER_KEY, 
-        CONSUMER_SECRET, 
-        $_SESSION['access_token']['oauth_token'], 
-        $_SESSION['access_token']['oauth_token_secret']
+    CONSUMER_KEY, CONSUMER_SECRET, 
+    $_SESSION['access_token']['oauth_token'], 
+    $_SESSION['access_token']['oauth_token_secret']
 );
 $id = "";
-$tweets = $twitter->get("statuses/user_timeline", ["count" => 10, "screen_name" => $screen_name]);
-?>								
-<?php
-foreach ($tweets as $temp) {
-    ?>
-    <div class="slide" >
-        <div class="row" >
-            <div class="col-md-12" >
-                <div class="tweet-user text-center" >
-                    <?php
-                    echo $temp->user->name . " (<span>@" . $temp->user->screen_name . "</span>)";
-                    ?>
-                </div>
-                <div class="tweet text-center" >
-                    <?php
-                    echo "<p>" . $temp->text . "</p>";
-
-                    if (isset($temp->entities->media)) {
+$tweets = $twitter->get(
+    "statuses/user_timeline", 
+    ["count" => 10, "screen_name" => $screen_name]
+);
 
 
-                        foreach ($temp->entities->media as $m) {
-                            if ($m->type == "photo") {
-                                echo '<img src="' . $m->media_url . '" />';
-                            }
-                            if ($m->type == "video") {
-                                //              echo $m->url;
+if (!isset($tweets->errors)) {
+    foreach ($tweets as $temp) {
+        ?>
+        <div class="slide" >
+            <div class="row" >
+                <div class="col-md-12" >
+                    <div class="tweet-user text-center" >
+                        <?php
+                        echo $temp->user->name 
+                            . " (<span>@" . $temp->user->screen_name . "</span>)";
+                        ?>
+                    </div>
+                    <div class="tweet text-center" >
+                        <?php
+                        echo "<p>" . $temp->text . "</p>";
+
+                        if (isset($temp->entities->media)) {
+
+
+                            foreach ($temp->entities->media as $m) {
+                                if ($m->type == "photo") {
+                                    echo '<img src="' . $m->media_url . '" />';
+                                }
+                                if ($m->type == "video") {
+                                    //              echo $m->url;
+                                }
                             }
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
+
             </div>
 
         </div>
 
-    </div>
-
-    <?php
+        <?php
+    }
 }
-?>
+   
