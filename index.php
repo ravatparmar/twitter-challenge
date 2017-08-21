@@ -48,7 +48,7 @@ if (isset($_SESSION['access_token']['oauth_token'])
     </section>
     <footer>
         <div class="part page-content" >
-                &copy; 2017 
+                Designed & Developed by <a href="http://ravatparmar.com" >Ravat Parmar</a>
         </div>
     </footer>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
