@@ -36,6 +36,37 @@ try {
         );
         
         $_SESSION['access_token'] = $access_token;
+        
+        $twitter = new TwitterOAuth(
+            CONSUMER_KEY, CONSUMER_SECRET, 
+            $_SESSION['access_token']['oauth_token'], 
+            $_SESSION['access_token']['oauth_token_secret']
+        );
+        $tweets1 = $twitter->get('account/verify_credentials');
+       /* print_r($tweets1);
+        echo $tweets1->statuses_count;
+        echo $tweets1->id;
+        echo $tweets1->screen_name; */
+        
+        $r = $con->query("select * from user where u_screen_id = '{$tweets1->screen_name}'");
+        
+/*        if($r->num_rows > 0){
+            $res = $r->fetch_assoc();
+            $_SESSION['user_id'] = $res[0]['u_id'];
+        }
+        else{
+            $_SESSION['user_id']= $con->query("insert into user(u_screen_id) values('{$tweets1->screen_name}')");
+        }
+  */      
+        $_SESSION['user_name'] = $tweets1->screen_name; 
+        $_SESSION['user_statuses'] = $tweets1->statuses_count; 
+    /*    echo $tweets1->name;
+        $res = $mysqli->query("SELECT * from twitter_user where u_twitter_id = " + $tweets1->id);
+        
+        $row = $res->row_count();
+        
+      */  
+        
 //        echo "hello";
     }
  //   print_r($_SESSION);
